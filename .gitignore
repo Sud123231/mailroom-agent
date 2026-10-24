@@ -1,0 +1,13 @@
+@"
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.pytest_cache/
+.coverage
+"@ | Set-Content .gitignore
+# Local database
+*.db
+
+# Local diagnostic scripts
+test_gemini_live.py
