@@ -346,11 +346,15 @@ def process_propose(
         return response
 
     except (AgentError, ProposalValidationError) as exc:
-
+        print(f"PROPOSAL DEBUG: {type(exc).__name__}: {exc}", flush=True)
         error = ServiceProcessingError(
             "Unable to produce a valid proposal"
         )
         error.__cause__ = exc
+        cause = exc.__cause__
+        while cause is not None:
+            print(f"ROOT CAUSE: {type(cause).__name__}: {cause}", flush=True)
+            cause = cause.__cause__
         raise error
 
     except Exception:
