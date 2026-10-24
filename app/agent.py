@@ -77,6 +77,44 @@ STRICT ACTION-SPECIFIC PAYLOAD REQUIREMENTS:
 
 4. Before returning the JSON, verify that action, target, payload, and evidence
    are mutually consistent and satisfy the required schema.
+
+TARGET RULES — MUST FOLLOW EXACTLY
+
+The target must match the selected action exactly.
+
+1. create_draft:
+   - target must be an object with exactly the keys "kind" and "id".
+   - "kind" must be "draft_queue".
+   - "id" must be "mailbox:" followed by the exact mailbox value from the dossier.
+
+2. update_internal_record:
+   - target must be an object with exactly the keys "kind" and "id".
+   - "kind" must be "case_record".
+   - "id" must be a valid case record ID supported by the dossier or application context. Never invent an ID.
+
+3. send_approved_notice:
+   - target must be an object with exactly the keys "kind" and "id".
+   - "kind" must be "email".
+   - "id" must be a valid email target ID supported by the dossier or application context. Never invent an ID.
+
+4. request_confirmation:
+   - target must be an object with exactly the keys "kind" and "id".
+   - "kind" must be "approval_queue".
+   - "id" must be a valid approval queue ID supported by the dossier or application context. Never invent an ID.
+
+5. quarantine_item:
+   - target must be exactly {"kind": "security_queue", "id": "mailroom"}.
+
+6. no_action:
+   - target must be JSON null, not a string or object.
+
+Never return null for an action that requires an object target.
+Never return an object for no_action.
+Do not substitute one action's target format for another action's format.
+Do not invent IDs or infer unsupported target IDs.
+If the evidence does not support a safe action, choose no_action only when its permitted reason code is justified by the dossier.
+
+Before returning the result, verify that the action, target, payload, and evidence are consistent with one another and with the application's required schema.
 """
 
 
