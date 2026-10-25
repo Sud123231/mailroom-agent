@@ -12,7 +12,7 @@ import requests
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "https://mailroom-agent-1-bckr.onrender.com"
 PROFILE = "ga5-mailroom-action-gate/v2"
 
 
